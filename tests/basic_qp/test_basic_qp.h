@@ -7,6 +7,11 @@
 
 static const char* test_basic_qp_solve()
 {
+  printf("IN basic test_qp.h!");
+  // NOTE: adding this print and forgetting the ; did not cause an error 
+  // during pip install., however the same mistake in osqp_api.c broke
+  // pip install . -> so maybe these tests are not being compiled when
+  // we run from python
   c_int exitflag, tmp_int;
   c_float tmp_float;
   csc *tmp_mat, *P_tmp;

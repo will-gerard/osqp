@@ -98,6 +98,7 @@ c_int osqp_setup(OSQPSolver** solverp,
                  c_int n,
                  const OSQPSettings *settings) {
 
+  printf("IN OSQP SETUP!\n");
   c_int exitflag;
 
   OSQPSolver*    solver;
@@ -202,6 +203,8 @@ c_int osqp_setup(OSQPSolver** solverp,
 
   // Copy settings
   solver->settings = copy_settings(settings);
+  printf("setting solver to verbose mode \n");
+  solver->settings->verbose = 1;
   if (!(solver->settings)) return osqp_error(OSQP_MEM_ALLOC_ERROR);
 
   // Perform scaling
@@ -302,9 +305,14 @@ c_int osqp_setup(OSQPSolver** solverp,
 
   // Print header
 # ifdef PRINTING
-  if (solver->settings->verbose) print_setup_header(solver);
+  printf("in print header call in setup \n");
+  if (solver->settings->verbose) {
+    printf("printing header if solver is set to verbose mode! \n");
+    print_setup_header(solver);
+  }
   work->summary_printed = 0; // Initialize last summary  to not printed
 # endif /* ifdef PRINTING */
+printf("passed call to print header in setup");
 
 
   // If adaptive rho and automatic interval, but profiling disabled, we need to
@@ -337,7 +345,7 @@ c_int osqp_solve(OSQPSolver *solver) {
   c_int compute_cost_function; // Boolean: compute the cost function in the loop or not
   c_int can_check_termination; // Boolean: check termination or not
   OSQPWorkspace* work;
-
+  printf("STARTING OSQP SOLVE\n");
 #ifdef PROFILING
   c_float temp_run_time;       // Temporary variable to store current run time
 #endif /* ifdef PROFILING */
@@ -345,7 +353,7 @@ c_int osqp_solve(OSQPSolver *solver) {
 #ifdef PRINTING
   c_int can_print;             // Boolean whether you can print
 #endif /* ifdef PRINTING */
-
+  printf("Checking value of can_print : %d\n", can_print);
   // Check if solver has been initialized
   if (!solver || !solver->work) return osqp_error(OSQP_WORKSPACE_NOT_INIT_ERROR);
   work = solver->work;
@@ -380,7 +388,7 @@ c_int osqp_solve(OSQPSolver *solver) {
 
 
 #ifdef PRINTING
-
+  printf("in code to print header \n");
   if (solver->settings->verbose) {
     // Print Header for every column
     print_header();

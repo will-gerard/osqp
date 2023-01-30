@@ -52,6 +52,7 @@ void print_header(void) {
 }
 
 void print_setup_header(const OSQPSolver *solver) {
+  printf("in print header function \n");
 
   OSQPWorkspace *work;
   OSQPData      *data;
@@ -72,6 +73,8 @@ void print_setup_header(const OSQPSolver *solver) {
           "        University of Oxford  -  Stanford University 2019\n",
           OSQP_VERSION);
   print_line();
+
+  printf("should have just printed header \n");
 
   // Print variables and constraints
   c_print("problem:  ");
